@@ -616,7 +616,7 @@ func (s *Service) Run(ctx context.Context) error {
 		s.cfgMu.RLock()
 		if s.cfg != nil {
 			previousStrategy = strings.ToLower(strings.TrimSpace(s.cfg.Routing.Strategy))
-			previousSessionAffinity = s.cfg.Routing.ClaudeCodeSessionAffinity || s.cfg.Routing.SessionAffinity
+			previousSessionAffinity = s.cfg.Routing.SessionAffinity
 			previousSessionAffinityTTL = s.cfg.Routing.SessionAffinityTTL
 		}
 		s.cfgMu.RUnlock()
@@ -642,7 +642,7 @@ func (s *Service) Run(ctx context.Context) error {
 		previousStrategy = normalizeStrategy(previousStrategy)
 		nextStrategy = normalizeStrategy(nextStrategy)
 
-		nextSessionAffinity := newCfg.Routing.ClaudeCodeSessionAffinity || newCfg.Routing.SessionAffinity
+		nextSessionAffinity := newCfg.Routing.SessionAffinity
 		nextSessionAffinityTTL := newCfg.Routing.SessionAffinityTTL
 
 		selectorChanged := previousStrategy != nextStrategy ||
